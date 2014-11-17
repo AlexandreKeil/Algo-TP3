@@ -78,42 +78,126 @@ const char* enumtostring(enum genre_jeu type)
 {
     switch (type)
     {
-        case PLATEAU: return "Plateau"; break;
-        case RPG: return "RPG"; break;
-        case COOPERATIF: return "Cooperatif"; break;
-        case AMBIANCE: return "Ambiance"; break;
-        case HASARD: return "Hasard"; break;
+    case PLATEAU:
+            return "Plateau";
+        break;
+    case RPG:
+        return "RPG";
+        break;
+    case COOPERATIF:
+        return "Cooperatif";
+        break;
+    case AMBIANCE:
+        return "Ambiance";
+        break;
+    case HASARD:
+        return "Hasard";
+        break;
     }
 }
 
-void supprimer_ludotheque(t_ludotheque* ludo){
+void supprimer_ludotheque(t_ludotheque* ludo)
+{
     t_jeu* j = ludo->debut;
     supprimer_jeu(j);
     free(ludo);
 }
 
-void supprimer_jeu(t_jeu* j){
-    if (j->suivant == NULL){ //le jeu est le dernier de la ludothèque
+void supprimer_jeu(t_jeu* j)
+{
+    if (j->suivant == NULL)  //le jeu est le dernier de la ludothèque
+    {
         free(j);
     }
-    else { //il y a encore d'autres jeux à supprimer
+    else   //il y a encore d'autres jeux à supprimer
+    {
         supprimer_jeu(j->suivant);
         free(j);
     }
 }
 
-t_ludotheque* requete_jeu(t_ludotheque* ludo, enum genre_jeu genre, int nbJoueurs, int duree){
+t_ludotheque* requete_jeu(t_ludotheque* ludo, enum genre_jeu genre, int nbJoueurs, int duree)
+{
     t_ludotheque* suggestions = creer_ludotheque();
     t_jeu* j = ludo->debut;
-    while (j != NULL){
+    while (j != NULL)
+    {
         if (j->genre == genre &&
-            j->nbJoueurMin <= nbJoueurs &&
-            j->nbJoueurMax >= nbJoueurs &&
-            j->duree >= 0.9*duree &&
-            j->duree <= 1.1*duree){
-                ajouter_jeu(suggestions, j);
-            }
+                j->nbJoueurMin <= nbJoueurs &&
+                j->nbJoueurMax >= nbJoueurs &&
+                j->duree >= 0.9*duree &&
+                j->duree <= 1.1*duree)
+        {
+            ajouter_jeu(suggestions, j);
+        }
         j = j->suivant;
     }
     return suggestions;
+}
+
+
+t_ludotheque * fusion(t_ludotheque * ludo1, t_ludotheque * ludo2)
+{
+    t_ludotheque* l_fusion = creer_ludotheque();
+    t_jeu* i = l_fusion->debut;
+    t_jeu* j = ludo1->debut;
+    t_jeu* k = ludo2->debut;
+
+//cas du premier
+
+
+
+    while (j!=NULL && k!=NULL)
+        if (strcmp(j->nom, k->nom) <= 0) // Ici faire un tri non sensible à la case
+
+        {
+            if (l_fusion->nb_jeu==0)
+                i = j;
+            else i->suivant = j;
+
+            j= j->suivant;
+            l_fusion->nb_jeu++;
+        }
+
+        else if ( strcmp(j->nom, k->nom) > 0)
+        {
+            if (l_fusion->nb_jeu==0)
+                i= k;
+            else i->suivant = k;
+
+            k= k->suivant;
+            l_fusion->nb_jeu ++;
+        }
+
+    // Ici, j ou k = NULL
+    if (j == NULL)
+    {
+        while (k !=NULL)
+        {
+            if (l_fusion->nb_jeu==0)
+                i = k;
+            else i->suivant = k;
+
+            k= k->suivant;
+            l_fusion->nb_jeu++;
+        }
+    }
+
+    else   // (k==NULL)
+    {
+        while (j !=NULL)
+        {
+
+            if (l_fusion->nb_jeu==0)
+                i = j;
+            else i->suivant = j;
+
+            j= j->suivant;
+            l_fusion->nb_jeu++;
+
+        }
+    }
+
+
+    return l_fusion;
 }

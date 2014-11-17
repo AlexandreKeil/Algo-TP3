@@ -30,4 +30,5 @@ void affiche_ludotheque(t_ludotheque* ludo); //Indentation des colonnes à revoir
 void supprimer_ludotheque(t_ludotheque* ludo); //OK
 void supprimer_jeu(t_jeu* j); //OK
 t_ludotheque* requete_jeu(t_ludotheque* ludo, enum genre_jeu genre, int nbJoueurs, int duree);
+t_ludotheque * fusion(t_ludotheque * ludo1, t_ludotheque * ludo2) ;
 #endif // FONCTIONS_H_INCLUDEDdonc
