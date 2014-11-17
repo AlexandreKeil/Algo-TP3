@@ -70,7 +70,7 @@ void affiche_ludotheque(t_ludotheque* ludo)
             i++;
             j = j->suivant;
         }
-        printf("%15s| %d", "Total", i);
+        printf("%15s| %d \n\n", "Total", i);
     }
 }
 
@@ -139,65 +139,22 @@ t_ludotheque* requete_jeu(t_ludotheque* ludo, enum genre_jeu genre, int nbJoueur
 t_ludotheque * fusion(t_ludotheque * ludo1, t_ludotheque * ludo2)
 {
     t_ludotheque* l_fusion = creer_ludotheque();
-    t_jeu* i = l_fusion->debut;
     t_jeu* j = ludo1->debut;
     t_jeu* k = ludo2->debut;
 
 //cas du premier
 
-
-
-    while (j!=NULL && k!=NULL)
-        if (strcmp(j->nom, k->nom) <= 0) // Ici faire un tri non sensible à la case
-
+    while (j!=NULL)
         {
-            if (l_fusion->nb_jeu==0)
-                i = j;
-            else i->suivant = j;
-
-            j= j->suivant;
-            l_fusion->nb_jeu++;
+            ajouter_jeu(l_fusion, j);
+            j=j->suivant;
         }
 
-        else if ( strcmp(j->nom, k->nom) > 0)
+
+    while (k!=NULL)
         {
-            if (l_fusion->nb_jeu==0)
-                i= k;
-            else i->suivant = k;
-
-            k= k->suivant;
-            l_fusion->nb_jeu ++;
+            ajouter_jeu(l_fusion, k);
+            k=k->suivant;
         }
-
-    // Ici, j ou k = NULL
-    if (j == NULL)
-    {
-        while (k !=NULL)
-        {
-            if (l_fusion->nb_jeu==0)
-                i = k;
-            else i->suivant = k;
-
-            k= k->suivant;
-            l_fusion->nb_jeu++;
-        }
-    }
-
-    else   // (k==NULL)
-    {
-        while (j !=NULL)
-        {
-
-            if (l_fusion->nb_jeu==0)
-                i = j;
-            else i->suivant = j;
-
-            j= j->suivant;
-            l_fusion->nb_jeu++;
-
-        }
-    }
-
-
     return l_fusion;
 }
