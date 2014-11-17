@@ -38,7 +38,7 @@ int ajouter_jeu(t_ludotheque *ludo, t_jeu *j)
         ludo->debut=j;
         ludo->nb_jeu = 1;
     }
-    else if (strcmp(j->nom, x->nom) <= 0)
+    else if (strcmp(j->nom, x->nom) <= 0) // Ici faire un tri non sensible Ã  la case
     {
         j->suivant = ludo->debut;
         ludo->debut = j;
@@ -93,10 +93,10 @@ void supprimer_ludotheque(t_ludotheque* ludo){
 }
 
 void supprimer_jeu(t_jeu* j){
-    if (j->suivant == NULL){ //le jeu est le dernier de la ludothèque
+    if (j->suivant == NULL){ //le jeu est le dernier de la ludothÃ¨que
         free(j);
     }
-    else { //il y a encore d'autres jeux à supprimer
+    else { //il y a encore d'autres jeux Ã  supprimer
         supprimer_jeu(j->suivant);
         free(j);
     }
