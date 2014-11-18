@@ -2,7 +2,7 @@
 
 int main()
 {
-    t_ludotheque* l = creer_ludotheque();
+    /*t_ludotheque* l = creer_ludotheque();
     t_ludotheque* l2 = creer_ludotheque();
     //affiche_ludotheque(l);
     t_jeu* j1 = creer_jeu("Times up", 3, 4, 8, 35);
@@ -18,7 +18,10 @@ int main()
     affiche_ludotheque(l);
     affiche_ludotheque(l2);
     t_ludotheque* lfusion = fusion(l, l2) ;
-    affiche_ludotheque(lfusion);
+    affiche_ludotheque(lfusion);*/
+    t_ludotheque tab_ludo[NBRE_MAX];
+    int nb_ludo=0;
+    menu();
     return 0;
 }
 

@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#define NBRE_MAX 10
 
 enum genre_jeu {PLATEAU, RPG, COOPERATIF, AMBIANCE, HASARD};
 
@@ -31,4 +32,6 @@ void supprimer_ludotheque(t_ludotheque* ludo); //OK
 void supprimer_jeu(t_jeu* j); //OK
 t_ludotheque* requete_jeu(t_ludotheque* ludo, enum genre_jeu genre, int nbJoueurs, int duree);
 t_ludotheque * fusion(t_ludotheque * ludo1, t_ludotheque * ludo2) ;
+int affichageMenu(void);
+
 #endif // FONCTIONS_H_INCLUDEDdonc
