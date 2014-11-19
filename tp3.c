@@ -30,6 +30,8 @@ t_jeu* creer_jeu(char * nom,enum genre_jeu genre, int nbJoueurMin, int nbJoueurM
     }
 }
 
+/**Ancienne version de ajouter_jeu, avant les modifs liées à la fusion
+
 int ajouter_jeu(t_ludotheque *ludo, t_jeu *j)
 {
     t_jeu *x = ludo->debut;
@@ -38,19 +40,70 @@ int ajouter_jeu(t_ludotheque *ludo, t_jeu *j)
         ludo->debut=j;
         ludo->nb_jeu = 1;
     }
-    else if (strcmp(j->nom, x->nom) <= 0) // Ici faire un tri non sensible à la case
+    else
     {
-        j->suivant = ludo->debut;
-        ludo->debut = j;
+        if (strcmp(j->nom, x->nom) <= 0) //ajout dans l'ordre alphabétique
+        {
+            j->suivant = ludo->debut;
+            ludo->debut = j;
+        }
+        else
+        {
+            while (x->suivant != NULL && strcmp(j->nom, x->nom) > 0)
+            {
+                x = x->suivant;
+            }
+            j->suivant = x->suivant;
+            x->suivant = j;
+        }
+        ludo->nb_jeu++;
+    }
+    return 1;
+}
+*/
+int ajouter_jeu(t_ludotheque *ludo, t_jeu *jeu) //A REPRENDRE
+{
+    t_jeu *x = ludo->debut;
+    t_jeu* j = creer_jeu(jeu->nom,jeu->genre, jeu->nbJoueurMin, jeu->nbJoueurMax, jeu->duree);
+
+    if (ludo->nb_jeu == 0)
+    {
+        ludo->debut=j;
+        ludo->nb_jeu = 1;
     }
     else
     {
-        while (x->suivant != NULL && strcmp(j->nom, x->suivant->nom) != 0)
+
+        if (strcasecmp(j->nom, x->nom) < 0) //ajout dans l'ordre alphabétique
         {
-            x = x->suivant;
+            j->suivant = ludo->debut;
+            ludo->debut = j;
         }
-        j->suivant = x->suivant;
-        x->suivant = j;
+        else
+        {
+
+
+            while ((x->suivant != NULL) && (strcasecmp(j->nom, x->nom) >= 0))
+                x = x->suivant;
+
+            //if (strcasecmp(j->nom, x->nom) == 0) // Meme jeu
+            //    printf("Il y a deja un jeu portant ce nom dans cette ludotheque. Il est impossible de l'ajouter. \n");
+            // else
+            //  {
+
+            if (x->suivant == NULL)
+            {
+                x->suivant= j;
+                j->suivant =NULL;
+            }
+            else
+            {
+                j->suivant = x->suivant;
+                x->suivant = j;
+            }
+            //}
+        }
+        ludo->nb_jeu++;
     }
     return 1;
 }
@@ -101,6 +154,8 @@ void supprimer_ludotheque(t_ludotheque* ludo)
     t_jeu* j = ludo->debut;
     supprimer_jeu(j);
     free(ludo);
+    printf("La ludotheque a bien ete supprimee\n");
+
 }
 
 void supprimer_jeu(t_jeu* j)
@@ -116,17 +171,62 @@ void supprimer_jeu(t_jeu* j)
     }
 }
 
+int retirer_jeu(t_ludotheque* ludo, char*nom)
+{
+    if (ludo->debut == NULL)
+    {
+        printf("La ludotheque est vide, suppression impossible\n");
+        return 0;
+    }
+    else if (ludo->nb_jeu == 1)
+    {
+        if (ludo->debut->nom == nom)
+        {
+            ludo->debut->suivant == NULL;
+            ludo->debut == NULL;
+        }
+        else printf("La ludotheque ne contient pas le jeu.\n");
+        return 0;
+    }
+    else
+    {
+        t_jeu* j = ludo->debut;
+        t_jeu* prec =j;
+        while (j != NULL && j->nom != nom)
+        {
+            prec = j;
+            j = j->suivant;
+
+        }
+        if ( j==NULL)
+        {
+            printf("La ludotheque ne contient pas le jeu.\n");
+            return 0;
+        }
+
+        else //(j->nom == nom)
+        {
+            if (prec == j) // Cas du premier de la liste
+                (ludo->debut = j->suivant);
+            else prec->suivant = j->suivant;
+            //j->suivant= NULL;
+
+            printf("%s : suppression reussie\n", nom);
+            return 1;
+        }
+
+    }
+}
+
 t_ludotheque* requete_jeu(t_ludotheque* ludo, enum genre_jeu genre, int nbJoueurs, int duree)
 {
     t_ludotheque* suggestions = creer_ludotheque();
     t_jeu* j = ludo->debut;
     while (j != NULL)
     {
-        if (j->genre == genre &&
-                j->nbJoueurMin <= nbJoueurs &&
-                j->nbJoueurMax >= nbJoueurs &&
-                j->duree >= 0.9*duree &&
-                j->duree <= 1.1*duree)
+        if ((j->genre == genre || genre == -1) &&
+                ((j->nbJoueurMin <= nbJoueurs && j->nbJoueurMax >= nbJoueurs) || nbJoueurs == -1) &&
+                ((j->duree >= 0.9*duree && j->duree <= 1.1*duree) || duree == -1))
         {
             ajouter_jeu(suggestions, j);
         }
@@ -134,6 +234,7 @@ t_ludotheque* requete_jeu(t_ludotheque* ludo, enum genre_jeu genre, int nbJoueur
     }
     return suggestions;
 }
+
 
 
 t_ludotheque * fusion(t_ludotheque * ludo1, t_ludotheque * ludo2)
@@ -145,16 +246,18 @@ t_ludotheque * fusion(t_ludotheque * ludo1, t_ludotheque * ludo2)
 //cas du premier
 
     while (j!=NULL)
-        {
-            ajouter_jeu(l_fusion, j);
-            j=j->suivant;
-        }
+    {
+        t_jeu* x=creer_jeu(j->nom,j->genre, j->nbJoueurMin, j->nbJoueurMax, j->duree);
+        ajouter_jeu(l_fusion, x);
+        j=j->suivant;
+    }
 
 
     while (k!=NULL)
-        {
-            ajouter_jeu(l_fusion, k);
-            k=k->suivant;
-        }
+    {
+        t_jeu* x=creer_jeu(k->nom,k->genre, k->nbJoueurMin, k->nbJoueurMax, k->duree);
+        ajouter_jeu(l_fusion, x);
+        k=k->suivant;
+    }
     return l_fusion;
 }

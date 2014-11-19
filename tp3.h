@@ -30,6 +30,7 @@ const char* enumtostring(enum genre_jeu type); //OK
 void affiche_ludotheque(t_ludotheque* ludo); //Indentation des colonnes à revoir
 void supprimer_ludotheque(t_ludotheque* ludo); //OK
 void supprimer_jeu(t_jeu* j); //OK
+int retirer_jeu(t_ludotheque* ludo, char*nom);
 t_ludotheque* requete_jeu(t_ludotheque* ludo, enum genre_jeu genre, int nbJoueurs, int duree);
 t_ludotheque * fusion(t_ludotheque * ludo1, t_ludotheque * ludo2) ;
 int affichageMenu(void);
