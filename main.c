@@ -53,7 +53,25 @@ int main()
     t_ludotheque* lfusion = fusion(l, l2) ;
     affiche_ludotheque(lfusion);*/
 
-    menu();
+
+/*
+    t_ludotheque* l;  l = creer_ludotheque();
+    t_ludotheque *l2; l2 = creer_ludotheque();
+    t_ludotheque *l3; l3 = creer_ludotheque();
+    t_ludotheque *l4; l4 = creer_ludotheque();
+    t_ludotheque *l5; l5 = creer_ludotheque();
+
+    ajouter_ludo(ludotheques, l);
+    ajouter_ludo(ludotheques, l2);
+    ajouter_ludo(ludotheques, l3);
+    ajouter_ludo(ludotheques, l4);
+    ajouter_ludo(ludotheques, l5);*/
+
+
+
+/**BLOC A GARDER*/
+    toutes_ludos *ludotheques = ensemble_ludos();
+    menu(ludotheques);
     return 0;
 }
 

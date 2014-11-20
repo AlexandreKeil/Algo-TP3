@@ -1,5 +1,25 @@
 #include "tp3.h"
 
+
+toutes_ludos* ensemble_ludos(){
+//CREATION D'UN ENSEMBLE DE LUDO QUI PERMET DE GERER PLUSIEURS LUDOS
+    toutes_ludos* ludos = malloc(sizeof(t_ludotheque));
+    if (ludos == NULL)
+        return NULL;
+    else
+    {  //INITIALISATION DE CHAQUE CASE DU TABLEAU A NULL
+        int i;
+        for (i=0; i<NBRE_MAX; i++)
+            ludos->tab[i] = NULL;
+
+        //NBRE DE LUDO INITIALISE A 0
+        ludos->nb_ludos = 0;
+
+        return ludos;
+    }
+
+}
+
 t_ludotheque* creer_ludotheque()
 {
     t_ludotheque* ludo = malloc(sizeof(t_ludotheque));
@@ -91,6 +111,30 @@ int ajouter_jeu(t_ludotheque *ludo, t_jeu *jeu) // return 1 si jeu ajouté, 0 si
 }
 
 
+int ajouter_ludo(toutes_ludos *ludos, t_ludotheque *ludo) // return 1 si ludo ajouté, 0 si erreur
+{
+int i =0;
+
+// RECHERCHE D'UNE PLACE LIBRE DANS LE TABLEAU
+while (ludos->tab[i] != NULL && i!=NBRE_MAX)
+    i++;
+
+// PLACE LIBRE TROUVEE
+    if (ludos->tab[i] == NULL)
+    {
+        ludos->tab[i]=ludo;
+        ludos->nb_ludos++;
+        printf("Ludotheque creee, il s'agit de la ludotheque numero %d \n", i+1);
+        return i; // on retourne le numero de la place
+    }
+
+// TABLEAU REMPLI
+    else
+    {
+        printf("Vous avez cree le nombre maximum autorise de ludotheques");
+        return 0;
+    }
+}
 
 
 
