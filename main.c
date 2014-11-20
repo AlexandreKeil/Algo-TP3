@@ -52,7 +52,6 @@ int main()
 
     t_ludotheque* lfusion = fusion(l, l2) ;
     affiche_ludotheque(lfusion);
-    supprimer_ludotheque(l);
 
 //    menu();
     return 0;

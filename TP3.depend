@@ -10,14 +10,19 @@
 1416256534 source:c:\users\alexandre\documents\utc\gi03\nf16\tp3\tp3.c
 	"tp3.h"
 
-1416267783 source:c:\users\florian\documents\github\algo-tp3\algo-tp3\tp3.c
+1416503077 source:c:\users\florian\documents\github\algo-tp3\algo-tp3\tp3.c
 	"tp3.h"
 
-1416270381 c:\users\florian\documents\github\algo-tp3\algo-tp3\tp3.h
+1416472648 c:\users\florian\documents\github\algo-tp3\algo-tp3\tp3.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 
-1416270410 source:c:\users\florian\documents\github\algo-tp3\algo-tp3\main.c
+1416503121 source:c:\users\florian\documents\github\algo-tp3\algo-tp3\main.c
+	"tp3.h"
+
+1416500800 source:c:\users\florian\documents\github\algo-tp3\algo-tp3\menu.c
+	<stdio.h>
+	<stdlib.h>
 	"tp3.h"
 

@@ -30,8 +30,75 @@ t_jeu* creer_jeu(char * nom,enum genre_jeu genre, int nbJoueurMin, int nbJoueurM
     }
 }
 
-/**Ancienne version de ajouter_jeu, avant les modifs liées à la fusion
+//Ancienne version de ajouter_jeu, avant les modifs liées à la fusion
 
+
+
+
+int ajouter_jeu(t_ludotheque *ludo, t_jeu *jeu) // return 1 si jeu ajouté, 0 si erreur
+{
+
+    t_jeu *x = ludo->debut;
+    t_jeu *j = creer_jeu(jeu->nom,jeu->genre, jeu->nbJoueurMin, jeu->nbJoueurMax, jeu->duree); // copie du jeu
+
+// LUDO VIDE
+    if (ludo->debut==NULL)
+    {
+        ludo->debut=j;
+        j->suivant=NULL;
+        ludo->nb_jeu++;
+        return 1;
+    }
+
+// PREMIER ELEMENT EN JEU
+    if (ludo->debut==j->nom) // cas où premier jeu
+        {
+        printf("Ce jeu est déjà dans cette ludotheque");
+       return 0;
+        }
+
+    if (strcasecmp(ludo->debut->nom,j->nom)>0){
+        ludo->debut=j;
+        j->suivant=x;
+        ludo->nb_jeu++;
+        return 1;
+    }
+
+//SINON, SE DEPLACER JUSQU'A LA PLACE
+    while (x->suivant != NULL && strcasecmp(x->suivant->nom,j->nom)<0)
+        x=x->suivant;
+
+//PLACE A LA FIN
+    if (x->suivant == NULL)
+    {
+        x->suivant=j;
+        j->suivant= NULL;
+        ludo->nb_jeu++;
+        return 1;
+    }
+
+//JEU DEJA PRESENT
+    else if (strcasecmp(x->suivant->nom,j->nom)==0)
+       {
+       printf("Ce jeu est déjà dans cette ludotheque");
+       return 0;
+       }
+// JEU NI DEBUT, NI FIN, NI PRESENT
+    else // (strcasecmp(x->suivant->nom,j->nom)>0)
+    {
+        j->suivant= x->suivant;
+        x->suivant=j;
+        ludo->nb_jeu++;
+        return 1;
+    }
+}
+
+
+
+
+
+
+/*
 int ajouter_jeu(t_ludotheque *ludo, t_jeu *j)
 {
     t_jeu *x = ludo->debut;
@@ -42,14 +109,14 @@ int ajouter_jeu(t_ludotheque *ludo, t_jeu *j)
     }
     else
     {
-        if (strcmp(j->nom, x->nom) <= 0) //ajout dans l'ordre alphabétique
+        if (strcasecmp(j->nom, x->nom) <= 0) //ajout dans l'ordre alphabétique
         {
             j->suivant = ludo->debut;
             ludo->debut = j;
         }
         else
         {
-            while (x->suivant != NULL && strcmp(j->nom, x->nom) > 0)
+            while (x->suivant != NULL && strcasecmp(j->nom, x->nom) > 0)
             {
                 x = x->suivant;
             }
@@ -61,6 +128,8 @@ int ajouter_jeu(t_ludotheque *ludo, t_jeu *j)
     return 1;
 }
 */
+
+/*
 int ajouter_jeu(t_ludotheque *ludo, t_jeu *jeu) //A REPRENDRE
 {
     t_jeu *x = ludo->debut;
@@ -81,7 +150,6 @@ int ajouter_jeu(t_ludotheque *ludo, t_jeu *jeu) //A REPRENDRE
         }
         else
         {
-
 
             while ((x->suivant != NULL) && (strcasecmp(j->nom, x->nom) >= 0))
                 x = x->suivant;
@@ -107,6 +175,7 @@ int ajouter_jeu(t_ludotheque *ludo, t_jeu *jeu) //A REPRENDRE
     }
     return 1;
 }
+*/
 
 void affiche_ludotheque(t_ludotheque* ludo)
 {

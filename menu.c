@@ -33,11 +33,11 @@ void menu(void)
 
 do{
     printf("---Menu---\n\n");
-    printf("1. Créer une ludothèque\n");
-    printf("2. Afficher une ludothèque\n");
-    printf("3. Ajouter un jeu dans la ludothèque en saisissant ses caractéristiques\n");
-    printf("4. Effectuer une recherche de jeu à partir de critères saisis par l’utilisateur\n");
-    printf("5. Créer 2 ludothèques, les afficher, les fusionner puis afficher la nouvelle ludothèque\n");
+    printf("1. Creer une ludothèque\n");
+    printf("2. Afficher une ludotheque\n");
+    printf("3. Ajouter un jeu dans la ludotheque en saisissant ses caracteristiques\n");
+    printf("4. Effectuer une recherche de jeu à partir de criteres saisis par l’utilisateur\n");
+    printf("5. Creer 2 ludotheques, les afficher, les fusionner puis afficher la nouvelle ludotheque\n");
     printf("6. Quitter\n");
     scanf("%d", &choix);
 
