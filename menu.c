@@ -2,26 +2,6 @@
 #include <stdlib.h>
 #include "tp3.h"
 
-/*int affichageMenu()
-{
-    int choix;
-
-    printf("---Menu---\n\n");
-    printf("1. Créer une ludothèque\n");
-    printf("2. Afficher une ludothèque\n");
-    printf("3. Ajouter un jeu dans la ludothèque en saisissant ses caractéristiques\n");
-    printf("4. Effectuer une recherche de jeu à partir de critères saisis par l’utilisateur\n");
-    printf("5. Créer 2 ludothèques, les afficher, les fusionner puis afficher la nouvelle ludothèque\n");
-    printf("6. Quitter\n");
-    scanf("%d", &choix);
-    while(choix < 1 || choix > 6)
-    {
-        printf("Choix invalide.\n");
-        scanf("%d", &choix);
-    }
-    return choix;
-}
-*/
 
 void menu(void)
 {
@@ -39,6 +19,7 @@ do{
     printf("4. Effectuer une recherche de jeu à partir de criteres saisis par l’utilisateur\n");
     printf("5. Creer 2 ludotheques, les afficher, les fusionner puis afficher la nouvelle ludotheque\n");
     printf("6. Quitter\n");
+
     scanf("%d", &choix);
 
     while(choix < 1 || choix > 6)

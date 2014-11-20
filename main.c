@@ -2,7 +2,7 @@
 
 int main()
 {
-    /** Premier main de test
+   /** Premier main de test
     t_ludotheque* l = creer_ludotheque();
      //affiche_ludotheque(l);
      t_jeu* j1 = creer_jeu("Times up", 3, 4, 8, 35);
@@ -29,7 +29,7 @@ int main()
     affiche_ludotheque(l);
     return 0;
     */
-    //Main du prof lors de la démo
+/*  //Main du prof lors de la démo
     t_ludotheque* l = creer_ludotheque();
     t_ludotheque* l2 = creer_ludotheque();
     //affiche_ludotheque(l);
@@ -51,9 +51,9 @@ int main()
     affiche_ludotheque(l2);
 
     t_ludotheque* lfusion = fusion(l, l2) ;
-    affiche_ludotheque(lfusion);
+    affiche_ludotheque(lfusion);*/
 
-//    menu();
+    menu();
     return 0;
 }
 
