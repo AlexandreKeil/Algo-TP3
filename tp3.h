@@ -23,10 +23,10 @@ typedef struct ludotheque {
 
 
 // ENSEMBLE DES LUDOS PERMETANT D'AVOIR PLUSIEURS LUDO
-typedef struct toutes_ludos{
+typedef struct toutes_ludos {
     t_ludotheque* tab[NBRE_MAX]; // tableau de pointeurs de ludotheque. Contient NBRE_MAX cases
     int nb_ludos; // nombre de ludotheques dans le tableau
-    }toutes_ludos;
+    } toutes_ludos;
 
 
 
@@ -35,14 +35,14 @@ t_ludotheque* creer_ludotheque(); //OK
 t_jeu* creer_jeu(char * nom, enum genre_jeu genre, int nbJoueurMin, int nbJoueurMax, int duree); //OK
 int ajouter_jeu(t_ludotheque* ludo, t_jeu* j); //OK
 const char* enumtostring(enum genre_jeu type); //OK
-void affiche_ludotheque(t_ludotheque* ludo); //Indentation des colonnes à revoir
+void affiche_ludotheque(t_ludotheque* ludo); //OK
 void supprimer_ludotheque(t_ludotheque* ludo); //OK
 void supprimer_jeu(t_jeu* j); //OK
-int retirer_jeu(t_ludotheque* ludo, char*nom);
-void menu(toutes_ludos *ludotheques);
-t_ludotheque* requete_jeu(t_ludotheque* ludo, enum genre_jeu genre, int nbJoueurs, int duree);
-t_ludotheque * fusion(t_ludotheque * ludo1, t_ludotheque * ludo2) ;
-int ajouter_ludo(toutes_ludos *ludos, t_ludotheque *ludo);
-toutes_ludos* ensemble_ludos();
+int retirer_jeu(t_ludotheque* ludo, char*nom); //OK
+void menu(toutes_ludos *ludotheques); // 1 et 2 OK , 3 4 5 6 A FAIRE !
+t_ludotheque* requete_jeu(t_ludotheque* ludo, enum genre_jeu genre, int nbJoueurs, int duree); // A FAIRE !
+t_ludotheque * fusion(t_ludotheque * ludo1, t_ludotheque * ludo2) ; //OK
+int ajouter_ludo(toutes_ludos *ludos, t_ludotheque *ludo); //OK
+toutes_ludos* ensemble_ludos(); //OK
 
 #endif // FONCTIONS_H_INCLUDEDdonc

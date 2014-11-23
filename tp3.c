@@ -26,7 +26,7 @@ t_ludotheque* creer_ludotheque()
     if (ludo == NULL)
         return NULL;
     else
-    {
+    { // INITIALISATION DE LA LUDOTHEQUE
         ludo->nb_jeu = 0;
         ludo->debut = NULL;
         return ludo;
