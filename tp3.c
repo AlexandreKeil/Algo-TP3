@@ -212,8 +212,8 @@ int retirer_jeu(t_ludotheque* ludo, char*nom)
     {
         if (ludo->debut->nom == nom)
         {
-            ludo->debut->suivant == NULL;
-            ludo->debut == NULL;
+            ludo->debut->suivant = NULL;
+            ludo->debut = NULL;
         }
         else printf("La ludotheque ne contient pas le jeu.\n");
         return 0;
