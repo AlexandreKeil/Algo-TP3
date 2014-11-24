@@ -27,7 +27,7 @@ void menu(toutes_ludos *ludotheques)
         printf("1. Creer une ludotheque (%d/%d) \n", ludotheques->nb_ludos,NBRE_MAX);
         printf("2. Afficher une ludotheque\n");
         printf("3. Ajouter un jeu dans la ludotheque en saisissant ses caracteristiques\n");
-        printf("4. Effectuer une recherche de jeu à partir de criteres saisis par l’utilisateur\n");
+        printf("4. Effectuer une recherche de jeu a partir de criteres saisis par l'utilisateur\n");
         printf("5. Creer 2 ludotheques, les afficher, les fusionner puis afficher la nouvelle ludotheque\n");
         printf("6. Quitter\n");
 
@@ -83,7 +83,7 @@ void menu(toutes_ludos *ludotheques)
         /** CONTINUER A PARTIR D'ICI */
         case 3:
             if (ludotheques->nb_ludos ==0)
-                printf("Il n'y a aucune ludotheque a afficher. Veuillez en creer une auparavant.\n");
+                printf("Il n'y a aucune ludotheque. Veuillez en creer une auparavant.\n");
             else
             {
                 printf("Dans quelle ludotheque voulez-vous ajouter un jeu ?\n");
@@ -152,22 +152,45 @@ void menu(toutes_ludos *ludotheques)
             break;
 
         case 4:
-            if (l== NULL)
 
-                printf("error, l n'existe pas\n");
+             if (ludotheques->nb_ludos ==0)
+                printf("Il n'y a aucune ludotheque. Veuillez en creer une auparavant.\n");
             else
             {
+                printf("Dans quelle ludotheque voulez-vous chercher un jeu ?\n");
+                int i;
+
+                // AFFICHAGE DES NUMEROS DES LUDOS DEJA CREES
+                printf("Ludotheques precedemment crees : ");
+                for (i=0; i< NBRE_MAX; i++)
+                    if (ludotheques->tab[i]!=NULL)
+                        printf("%d ", i+1);
+                printf("\n");
+
+                // CHOIX DE LA LUDO
+                scanf("%d",&n_ludo);
+
+                // TEST DES ERREURS POSSIBLES
+                while(choix < 1 || n_ludo > NBRE_MAX || ludotheques->tab[n_ludo-1]== NULL)
+                {
+                    printf("Choix invalide, cette ludotheque n'existe pas.\n");
+                    scanf("%d", &n_ludo);
+                }
+                if (ludotheques->tab[n_ludo-1]->debut== NULL)
+                    printf("Cette ludotheque est vide\n");
+
+                else{
 
                 printf("Recherche d'un jeu\nQuel genre pour le jeu ?\n");
                 printf("0- Plateau | 1- RPG | 2- Cooperatif | 3- Ambiance | 4- Hasard | -1 pour ignorer \n");
                 scanf("%d", &genre);
-                while(genre < -1 || genre > 6)
+                while(genre < -1 || genre > 5)
                 {
                     printf("Genre invalide.\n");
                     scanf("%d", &genre);
                 }
 
-                printf("Nombre de joueurs ? ");
+                printf("Nombre de joueurs ? -1 pour ignorer \n ");
                 scanf("%d", &nbJ);
                 while(nbJ < 0 && nbJ != -1)
                 {
@@ -175,7 +198,7 @@ void menu(toutes_ludos *ludotheques)
                     scanf("%d", &nbJ);
                 }
 
-                printf("Duree moyenne de jeu ? ");
+                printf("Duree moyenne de jeu ? -1 pour ignorer \n ");
                 scanf("%d", &duree);
                 while(duree < 0 && duree != -1)
                 {
@@ -184,7 +207,7 @@ void menu(toutes_ludos *ludotheques)
                 }
                 t_ludotheque* sugg = requete_jeu(l, genre, nbJ, duree);
                 affiche_ludotheque(sugg);
-            }
+}
             break;
 
         case 5:
@@ -226,6 +249,7 @@ void menu(toutes_ludos *ludotheques)
             break;
         } //switch
     }
+}
     while (choix !=6);
 
     return;
