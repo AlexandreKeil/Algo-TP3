@@ -14,7 +14,7 @@ void menu(toutes_ludos *ludotheques)
     l=NULL;
     sugg=NULL;
 
-    t_jeu* newgame, *j1, *j2, *j3,* j4;
+    t_jeu* newgame, *j1, *j2, *j3,* j4, *j5;
     char nom[30];
     int genre, nbMin, nbMax, duree, nbJ, choix, n_ludo, i;
 
@@ -205,7 +205,8 @@ void menu(toutes_ludos *ludotheques)
                     printf("Duree invalide");
                     scanf("%d", &duree);
                 }
-                t_ludotheque* sugg = requete_jeu(l, genre, nbJ, duree);
+                t_ludotheque* sugg = requete_jeu(ludotheques->tab[n_ludo-1], genre, nbJ, duree);
+                printf("Voici les jeux correspondant à votre recherche");
                 affiche_ludotheque(sugg);
 }
             break;
@@ -217,10 +218,13 @@ void menu(toutes_ludos *ludotheques)
             j2 = creer_jeu("Endor", 1, 3, 8, 90);
             j3 = creer_jeu("Monopoly", 1, 3, 8, 90);
             j4 = creer_jeu("Times up", 3, 4, 8, 35);
+            j5 = creer_jeu("a", 3, 4, 8, 35);
+
             ajouter_jeu(l1, j1);
             ajouter_jeu(l1, j2);
             ajouter_jeu(l2, j3);
             ajouter_jeu(l2, j4);
+            ajouter_jeu(l2, j5);
             printf("Ludotheque 1: \n");
             affiche_ludotheque(l1);
             printf("Ludotheque 2: \n");

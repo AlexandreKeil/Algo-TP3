@@ -73,7 +73,7 @@ int ajouter_jeu(t_ludotheque *ludo, t_jeu *jeu) // return 1 si jeu ajouté, 0 si
 // PREMIER ELEMENT EN JEU
     if (ludo->debut==j->nom) // cas où premier jeu
     {
-        printf("Ce jeu est déjà dans cette ludotheque");
+        printf("Ce jeu est deja dans cette ludotheque\n");
         return 0;
     }
 
@@ -101,7 +101,7 @@ int ajouter_jeu(t_ludotheque *ludo, t_jeu *jeu) // return 1 si jeu ajouté, 0 si
 //JEU DEJA PRESENT
     else if (strcasecmp(x->suivant->nom,j->nom)==0)
     {
-        printf("Ce jeu est déjà dans cette ludotheque");
+        printf("Ce jeu est deja dans cette ludotheque \n");
         return 0;
     }
 // JEU NI DEBUT, NI FIN, NI PRESENT
