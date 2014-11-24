@@ -1,13 +1,15 @@
 #include "tp3.h"
 
 
-toutes_ludos* ensemble_ludos(){
+toutes_ludos* ensemble_ludos()
+{
 //CREATION D'UN ENSEMBLE DE LUDO QUI PERMET DE GERER PLUSIEURS LUDOS
     toutes_ludos* ludos = malloc(sizeof(t_ludotheque));
     if (ludos == NULL)
         return NULL;
     else
-    {  //INITIALISATION DE CHAQUE CASE DU TABLEAU A NULL
+    {
+        //INITIALISATION DE CHAQUE CASE DU TABLEAU A NULL
         int i;
         for (i=0; i<NBRE_MAX; i++)
             ludos->tab[i] = NULL;
@@ -26,7 +28,8 @@ t_ludotheque* creer_ludotheque()
     if (ludo == NULL)
         return NULL;
     else
-    { // INITIALISATION DE LA LUDOTHEQUE
+    {
+        // INITIALISATION DE LA LUDOTHEQUE
         ludo->nb_jeu = 0;
         ludo->debut = NULL;
         return ludo;
@@ -69,12 +72,13 @@ int ajouter_jeu(t_ludotheque *ludo, t_jeu *jeu) // return 1 si jeu ajouté, 0 si
 
 // PREMIER ELEMENT EN JEU
     if (ludo->debut==j->nom) // cas où premier jeu
-        {
+    {
         printf("Ce jeu est déjà dans cette ludotheque");
-       return 0;
-        }
+        return 0;
+    }
 
-    if (strcasecmp(ludo->debut->nom,j->nom)>0){
+    if (strcasecmp(ludo->debut->nom,j->nom)>0)
+    {
         ludo->debut=j;
         j->suivant=x;
         ludo->nb_jeu++;
@@ -96,10 +100,10 @@ int ajouter_jeu(t_ludotheque *ludo, t_jeu *jeu) // return 1 si jeu ajouté, 0 si
 
 //JEU DEJA PRESENT
     else if (strcasecmp(x->suivant->nom,j->nom)==0)
-       {
-       printf("Ce jeu est déjà dans cette ludotheque");
-       return 0;
-       }
+    {
+        printf("Ce jeu est déjà dans cette ludotheque");
+        return 0;
+    }
 // JEU NI DEBUT, NI FIN, NI PRESENT
     else // (strcasecmp(x->suivant->nom,j->nom)>0)
     {
@@ -113,11 +117,11 @@ int ajouter_jeu(t_ludotheque *ludo, t_jeu *jeu) // return 1 si jeu ajouté, 0 si
 
 int ajouter_ludo(toutes_ludos *ludos, t_ludotheque *ludo) // return 1 si ludo ajouté, 0 si erreur
 {
-int i =0;
+    int i =0;
 
 // RECHERCHE D'UNE PLACE LIBRE DANS LE TABLEAU
-while (ludos->tab[i] != NULL && i!=NBRE_MAX)
-    i++;
+    while (ludos->tab[i] != NULL && i!=NBRE_MAX)
+        i++;
 
 // PLACE LIBRE TROUVEE
     if (ludos->tab[i] == NULL)
@@ -140,6 +144,7 @@ while (ludos->tab[i] != NULL && i!=NBRE_MAX)
 
 void affiche_ludotheque(t_ludotheque* ludo)
 {
+    char * tabgenre[5] = {"PLATEAU", "RPG", "COOPERATIF", "AMBIANCE", "HASARD"};
     if (ludo->debut == NULL)
         printf("La ludotheque est vide.\n");
     else
@@ -149,7 +154,8 @@ void affiche_ludotheque(t_ludotheque* ludo)
         t_jeu* j = ludo->debut;
         while (j != NULL)
         {
-            printf ("%15s| %15s| %d-%d%13s| %15d \n", j->nom, enumtostring(j->genre), j->nbJoueurMin, j->nbJoueurMax, "", j->duree);
+
+            printf ("%15s| %15s| %d-%d%13s| %15d \n", j->nom,tabgenre[j->genre], j->nbJoueurMin, j->nbJoueurMax, "", j->duree);
             i++;
             j = j->suivant;
         }
@@ -182,23 +188,17 @@ const char* enumtostring(enum genre_jeu type)
 void supprimer_ludotheque(t_ludotheque* ludo)
 {
     t_jeu* j = ludo->debut;
-    supprimer_jeu(j);
+    if (ludo->debut!= NULL)
+        supprimer_jeu(j);
     free(ludo);
     printf("La ludotheque a bien ete supprimee\n");
-
 }
 
 void supprimer_jeu(t_jeu* j)
 {
-    if (j->suivant == NULL)  //le jeu est le dernier de la ludothèque
-    {
-        free(j);
-    }
-    else   //il y a encore d'autres jeux à supprimer
-    {
+    if (j->suivant != NULL)  //le jeu n'est pas le dernier de la ludothèque
         supprimer_jeu(j->suivant);
-        free(j);
-    }
+    free(j);
 }
 
 int retirer_jeu(t_ludotheque* ludo, char*nom)

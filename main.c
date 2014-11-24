@@ -29,7 +29,7 @@ int main()
     affiche_ludotheque(l);
     return 0;
     */
-/*  //Main du prof lors de la démo
+/*//Main du prof lors de la démo
     t_ludotheque* l = creer_ludotheque();
     t_ludotheque* l2 = creer_ludotheque();
     //affiche_ludotheque(l);
@@ -51,7 +51,10 @@ int main()
     affiche_ludotheque(l2);
 
     t_ludotheque* lfusion = fusion(l, l2) ;
-    affiche_ludotheque(lfusion);*/
+    affiche_ludotheque(lfusion);
+
+    supprimer_ludotheque(lfusion);
+    affiche_ludotheque(lfusion);
 
 
 /*
@@ -72,6 +75,7 @@ int main()
 /**BLOC A GARDER*/
     toutes_ludos *ludotheques = ensemble_ludos();
     menu(ludotheques);
+    free(ludotheques);
     return 0;
 }
 
