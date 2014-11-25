@@ -51,9 +51,9 @@ void menu(toutes_ludos *ludotheques)
             ajouter_ludo(ludotheques, l);
             break;
 
-// AFFICHAGE D'UNE LUDOTHEQUE QUE L'ON CHOISI
+// AFFICHAGE D'UNE LUDOTHEQUE QUE L'ON CHOISIT
         case 2:
-            if (ludotheques->nb_ludos ==0)
+            if (ludotheques->nb_ludos ==0) //Aucune ludotheque initialisée
                 printf("Il n'y a aucune ludotheque a afficher. Veuillez en creer une auparavant.\n");
             else
             {
@@ -70,19 +70,19 @@ void menu(toutes_ludos *ludotheques)
                 // CHOIX DE LA LUDO
                 scanf("%d",&n_ludo);
 
-                // TEST DES ERREURS POSSIBLES
+                // TEST DES ERREURS POSSIBLES : ludothèque hors limites ou non-initialisée
                 while(choix < 1 || n_ludo > NBRE_MAX || ludotheques->tab[n_ludo-1]== NULL)
                 {
                     printf("Choix invalide, cette ludotheque n'existe pas.\n");
                     scanf("%d", &n_ludo);
                 }
+                //Affichage de la ludothèque choisie
                 affiche_ludotheque(ludotheques->tab[n_ludo-1]);
             }
             break;
 
-        /** CONTINUER A PARTIR D'ICI */
-        case 3:
-            if (ludotheques->nb_ludos ==0)
+        case 3: //Ajout d'une jeu personnalisé
+            if (ludotheques->nb_ludos ==0) //Aucune ludothèque initialisée
                 printf("Il n'y a aucune ludotheque. Veuillez en creer une auparavant.\n");
             else
             {
@@ -106,6 +106,7 @@ void menu(toutes_ludos *ludotheques)
                     scanf("%d", &n_ludo);
                 }
 
+                //Saisie des paramètres
                 printf("Entrez le nom du jeu : ");
                 scanf("%s", nom);
 
@@ -144,6 +145,7 @@ void menu(toutes_ludos *ludotheques)
                     scanf("%d", &duree);
                 }
 
+                //Création du jeu
                 newgame = creer_jeu(strdup(nom), genre, nbMin, nbMax, duree); // Strdup permet de reinitialiser la chaine de caractère
                 if (ajouter_jeu(ludotheques->tab[n_ludo-1], newgame) == 1)
                     printf("Jeu ajoute\n");
@@ -151,9 +153,9 @@ void menu(toutes_ludos *ludotheques)
             }
             break;
 
-        case 4:
+        case 4: //Suggestions de jeu
 
-             if (ludotheques->nb_ludos ==0)
+             if (ludotheques->nb_ludos ==0) //Aucune ludothèque initialisée
                 printf("Il n'y a aucune ludotheque. Veuillez en creer une auparavant.\n");
             else
             {
@@ -181,6 +183,7 @@ void menu(toutes_ludos *ludotheques)
 
                 else{
 
+                //Saisie des critères
                 printf("Recherche d'un jeu\nQuel genre pour le jeu ?\n");
                 printf("0- Plateau | 1- RPG | 2- Cooperatif | 3- Ambiance | 4- Hasard | -1 pour ignorer \n");
                 scanf("%d", &genre);
@@ -205,13 +208,15 @@ void menu(toutes_ludos *ludotheques)
                     printf("Duree invalide");
                     scanf("%d", &duree);
                 }
+
+                //Recherche et affichage des jeux correspondants
                 t_ludotheque* sugg = requete_jeu(ludotheques->tab[n_ludo-1], genre, nbJ, duree);
                 printf("Voici les jeux correspondant à votre recherche");
                 affiche_ludotheque(sugg);
 }
             break;
 
-        case 5:
+        case 5: //Fusion de 2 ludothèques contenant des doublons
             l1 = creer_ludotheque();
             l2 = creer_ludotheque();
             j1 = creer_jeu("Times up", 3, 4, 8, 35);
@@ -236,7 +241,7 @@ void menu(toutes_ludos *ludotheques)
             affiche_ludotheque(lfus);
             break;
 
-        case 6:
+        case 6: //Libération de l'espace mémoire puis fin du programme
             for (i=0; i< NBRE_MAX; i++)
                 if (ludotheques->tab[i]!=NULL)
                     supprimer_ludotheque(ludotheques->tab[i]);

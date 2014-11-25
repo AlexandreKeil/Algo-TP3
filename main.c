@@ -73,8 +73,8 @@ int main()
 
 
 /**BLOC A GARDER*/
-    toutes_ludos *ludotheques = ensemble_ludos();
-    menu(ludotheques);
+    toutes_ludos *ludotheques = ensemble_ludos(); //initialisation des ludothèque
+    menu(ludotheques); //appel du menu qui gère la suppression des ludotheques
     free(ludotheques);
     return 0;
 }
